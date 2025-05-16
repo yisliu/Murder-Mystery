@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     //used to check if both interaction and e key is pressed
     private bool check = false;
     [SerializeField] private dialouge text;
+
     
     // things the program needs to do before starting -> earlier than start()
     void Awake()
@@ -53,12 +54,14 @@ public class PlayerMovement : MonoBehaviour
 
     void stopMovement()
     {
+        
         if (b && Keyboard.current.eKey.wasPressedThisFrame)
         {
             check = !check;
         }
     }
 
+    private bool b2 = false;
     public bool continueText()
     {
         if (Keyboard.current.qKey.wasPressedThisFrame)
@@ -67,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         return false;
+        //return false;
     }
     
     //acesses time -> allows for all programs to be ran at the same pace
@@ -82,7 +86,6 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Debug.Log("Blocked");
-            text.displayText();
         }
     }
 }
