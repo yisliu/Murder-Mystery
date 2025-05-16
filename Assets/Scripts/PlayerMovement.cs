@@ -58,6 +58,16 @@ public class PlayerMovement : MonoBehaviour
             check = !check;
         }
     }
+
+    public bool continueText()
+    {
+        if (Keyboard.current.qKey.wasPressedThisFrame)
+        {
+            return true;
+        }
+
+        return false;
+    }
     
     //acesses time -> allows for all programs to be ran at the same pace
     void FixedUpdate()
@@ -67,7 +77,7 @@ public class PlayerMovement : MonoBehaviour
             Vector2 current = r.position;
             Vector2 newPos = current + movement * (5f * Time.fixedDeltaTime);
             r.MovePosition(newPos);
-            text.deleteText();
+            //text.deleteText();
         }
         else
         {

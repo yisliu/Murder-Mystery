@@ -12,6 +12,7 @@ public class Interaction : MonoBehaviour
             //Debug.Log("Triggered");
         //}
     //}
+    
 
     public bool inRange()
     {
