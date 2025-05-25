@@ -10,11 +10,14 @@ public class PlayerMovement : MonoBehaviour
     //this is used for position -> x + y values put in this
     private Vector2 movement;
     //accesses class for check if trigger is happening
-    public Interaction interaction;
+    
+    //public Interaction interaction;
+    
     //used to contain values gain from interaction class
     private bool b;
     //used to check if both interaction and e key is pressed
     private bool check = false;
+    [SerializeField] interrogate interogateOn;
     [SerializeField] private dialouge text;
 
     
@@ -47,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         //checks if the player is triggering/in range
-        b = interaction.inRange();
+        //b = interaction.inRange();
         //calls stopMovement to check if key is being pressed as well
         stopMovement();
     }
@@ -61,10 +64,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private bool b2 = false;
     public bool continueText()
     {
-        if (Keyboard.current.qKey.wasPressedThisFrame)
+        if (Keyboard.current.qKey.wasPressedThisFrame && check)
         {
             return true;
         }
@@ -76,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
     //acesses time -> allows for all programs to be ran at the same pace
     void FixedUpdate()
     {
-        if (check!=true)
+        if (interogateOn.getB()!=true)
         {
             Vector2 current = r.position;
             Vector2 newPos = current + movement * (5f * Time.fixedDeltaTime);

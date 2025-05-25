@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.InputSystem;
+
 
 public class dialouge : MonoBehaviour
 {
@@ -37,12 +39,13 @@ public class dialouge : MonoBehaviour
         {
             deleteText(text[i - 1]);
             text[i].gameObject.SetActive(true);
+            i++;
         }
-        else
+        else if (i == text.Length && Keyboard.current.eKey.wasPressedThisFrame)
         {
-            deleteText(text[i]);
+            deleteText(text[i-1]);
+            i = 0;
         }
-        
         //need way to stop text -> delete all -> could try to access q key function and find way?
     }
     //jjjiohunjbyuvvlhugpiyhbu'jm

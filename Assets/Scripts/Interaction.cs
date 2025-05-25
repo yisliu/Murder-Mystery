@@ -5,13 +5,18 @@ public class Interaction : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     bool triggered = false;
     
-    //void Update()
-    //{
-        //if (triggered)
-        //{
-            //Debug.Log("Triggered");
-        //}
-    //}
+    void Update()
+    {
+        if (triggered)
+        {
+            Debug.Log("Triggered");
+        }
+    }
+    
+    public bool getTriggered()
+    {
+        return triggered;
+    }
     
 
     public bool inRange()
