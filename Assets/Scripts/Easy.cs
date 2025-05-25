@@ -26,6 +26,7 @@ public class Easy : MonoBehaviour
     //sends a message in console or was it terminal? check both...
     Debug.Log("Easy Clicked :))))");
     //loads next scene -> requires you to type in the name of the level
-    SceneManager.LoadScene("EasyGame");
+    SceneManager.LoadScene("EasyGame", LoadSceneMode.Additive);
+    SceneManager.UnloadSceneAsync("StartGame");
     }
 }

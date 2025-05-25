@@ -10,7 +10,7 @@ public class interrogate : MonoBehaviour
     public Button intButton;
     public Interaction interaction;
     [SerializeField] private GameObject gObject;
-    private bool b = false;
+    private bool b = true;
     
     
     void Start()
@@ -34,7 +34,7 @@ public class interrogate : MonoBehaviour
 
     public void whenClicked()
     {
-        b = true;
+        b = false;
         gObject.SetActive(true);
     }
 

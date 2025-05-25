@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     private bool check = false;
     [SerializeField] interrogate interogateOn;
     [SerializeField] private dialouge text;
+    private static GameObject player;
 
     
     // things the program needs to do before starting -> earlier than start()
@@ -32,7 +34,20 @@ public class PlayerMovement : MonoBehaviour
         // Register input event
         controls.Player.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => movement = Vector2.zero;
+        if (player == null)
+        {
+            player = gameObject;
+            //Instance = this;
+            DontDestroyOnLoad(gameObject);
+            //changeChances();
+            //SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
+    
 
     void OnEnable()
     {
@@ -76,9 +91,27 @@ public class PlayerMovement : MonoBehaviour
     }
     
     //acesses time -> allows for all programs to be ran at the same pace
+    
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        interrogate p = other.GetComponent<interrogate>();
+        if (p!=null)
+        {
+            interogateOn = p;
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.GetComponent<interrogate>() == interogateOn)
+        {
+            interogateOn = null;
+        }
+    }
+    
     void FixedUpdate()
     {
-        if (interogateOn.getB()!=true)
+        if (interogateOn==null || interogateOn.getB()==true)
         {
             Vector2 current = r.position;
             Vector2 newPos = current + movement * (5f * Time.fixedDeltaTime);

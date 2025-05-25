@@ -30,7 +30,10 @@ public class Hard : MonoBehaviour
     {
         //sends a message in console or was it terminal? check both...
         Debug.Log("Hard Clicked :))))");
+        //keepInfo.Instance.setChances();
         //loads next scene -> requires you to type in the name of the level
-        SceneManager.LoadScene("HardGame");
+        
+        SceneManager.LoadScene("HardGame", LoadSceneMode.Additive);
+        SceneManager.UnloadSceneAsync("StartGame");
     }
 }

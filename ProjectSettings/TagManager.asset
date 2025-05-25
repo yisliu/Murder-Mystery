@@ -6,6 +6,12 @@ TagManager:
   tags:
   - NPC
   - Hard
+  - npc1
+  - npc2
+  - npc3
+  - Victor
+  - Emily
+  - Jenny
   layers:
   - Default
   - TransparentFX

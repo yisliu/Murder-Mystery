@@ -15,6 +15,7 @@ public class GameStart : MonoBehaviour
     public Button nextButton;
     public Button finishButton;
     [SerializeField] GameObject[] panels;
+    //[SerializeField] private GameObject panel;
     private int i = 0;
     [SerializeField] string sceneName;
 
@@ -22,14 +23,16 @@ public class GameStart : MonoBehaviour
     
     void Start()
     {
+        //panel.SetActive();
         panels[0].SetActive(true);
         //gets the value of button
-        Button back = backButton.GetComponent<Button>();
+        //Button back = backButton.GetComponent<Button>();
         //call function 'whenClicked' when button is clicked
-        back.onClick.AddListener(backTo);
+        backButton.onClick.AddListener(backTo);
         //Button next = nextButton.GetComponent<Button>();
         //call function 'whenClicked' when button is clicked
         nextButton.onClick.AddListener(nextTo);
+        finishButton.onClick.AddListener(endText);
         //Button finish = finishButton.GetComponent<Button>();
         finishButton.gameObject.SetActive(false);
         //call function 'whenClicked' when button is clicked
@@ -42,15 +45,54 @@ public class GameStart : MonoBehaviour
     //public void buttonVisible()
     //{
         //backButton.gameObject.SetActive(i > 0);
+        
+        
         //nextButton.gameObject.SetActive(i < panels.Length - 1);
         //finishButton.gameObject.SetActive(i == panels.Length);
     //}
 
-    public void switchScene()
+    public void endText()
     {
-        SceneManager.LoadScene(sceneName);
+        for (int index = 0; index < panels.Length; index++)
+        {
+            panels[index].SetActive(false);
+        }
+
+        backButton.gameObject.SetActive(false);
+        nextButton.gameObject.SetActive(false);
+        finishButton.gameObject.SetActive(false);
+        //panel.SetActive(false);
+        
+        string current = SceneManager.GetActiveScene().name;
+        if (current != sceneName)
+        {
+            StartCoroutine(waitForLoad(current, sceneName));
+        }
+
+        //string current = SceneManager.GetActiveScene().name;
+        //StartCoroutine(waitForLoad(current, sceneName));
     }
 
+    private IEnumerator waitForLoad(string oldS, string newS)
+    {
+        Scene newScene = SceneManager.GetSceneByName(newS);
+        if (!newScene.isLoaded)
+        {
+            AsyncOperation loadS = SceneManager.LoadSceneAsync(newS, LoadSceneMode.Additive);
+            while (!loadS.isDone)
+            {
+                yield return null;
+            }
+        }
+
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("EasyGame1"));
+        if (oldS != newS && SceneManager.GetSceneByName(oldS).isLoaded)
+        {
+            SceneManager.UnloadSceneAsync("EasyGame");
+        }
+    }
+
+    
     public void backTo()
     {
         if (i > 0)
@@ -75,7 +117,6 @@ public class GameStart : MonoBehaviour
         if (i == panels.Length-1)
         {
             finishButton.gameObject.SetActive(true);
-            finishButton.onClick.AddListener(switchScene);
         }
 
     }
