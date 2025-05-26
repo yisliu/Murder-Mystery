@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Movement controls;
     //this is used for position -> x + y values put in this
     private Vector2 movement;
+    public static PlayerMovement instance;
     //accesses class for check if trigger is happening
     
     //public Interaction interaction;
@@ -20,20 +21,24 @@ public class PlayerMovement : MonoBehaviour
     private bool check = false;
     [SerializeField] interrogate interogateOn;
     [SerializeField] private dialouge text;
-    private static GameObject player;
+    public static GameObject player;
+    public bool finished;
 
     
     // things the program needs to do before starting -> earlier than start()
     void Awake()
     {
+        controls = new Movement();
+        controls.Enable();
         //access the rigidbody -> gets position
         r = GetComponent<Rigidbody2D>();
         //makes sure to assign controls
-        controls = new Movement();
+        //controls = new Movement();
 
         // Register input event
         controls.Player.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => movement = Vector2.zero;
+        instance = this;
         if (player == null)
         {
             player = gameObject;
@@ -47,18 +52,31 @@ public class PlayerMovement : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Start()
+    { 
+        finished = false;
+    }
     
 
     void OnEnable()
     {
+        if (controls == null)
+        {
+            controls = new Movement();
+            controls.Player.Move.performed += ctx => movement = ctx.ReadValue<Vector2>();
+            controls.Player.Move.canceled += ctx => movement = Vector2.zero;
+        }
         //if the player is moving -> start
-        controls.Player.Enable();
+        controls.Enable();
     }
 
     void OnDisable()
     {
         //don't do anything if not starting
-        controls.Player.Disable();
+        if (controls != null)
+        {
+            controls.Disable();
+        }
     }
     
     //this is a function that is being called at all times
@@ -108,10 +126,20 @@ public class PlayerMovement : MonoBehaviour
             interogateOn = null;
         }
     }
-    
+
+    public void setFinished(bool booll)
+    {
+        finished = booll;
+        if (booll)
+        {
+            interogateOn = null;
+        }
+    }
+
+
     void FixedUpdate()
     {
-        if (interogateOn==null || interogateOn.getB()==true)
+        if (finished || interogateOn==null || interogateOn.getB()==true)
         {
             Vector2 current = r.position;
             Vector2 newPos = current + movement * (5f * Time.fixedDeltaTime);

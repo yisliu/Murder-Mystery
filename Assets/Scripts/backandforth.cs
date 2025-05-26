@@ -69,26 +69,45 @@ public class GameStart : MonoBehaviour
             StartCoroutine(waitForLoad(current, sceneName));
         }
 
+        if (PlayerMovement.instance != null)
+        {
+            PlayerMovement.instance.setFinished(true);
+        }
+        
+
         //string current = SceneManager.GetActiveScene().name;
         //StartCoroutine(waitForLoad(current, sceneName));
     }
 
     private IEnumerator waitForLoad(string oldS, string newS)
     {
-        Scene newScene = SceneManager.GetSceneByName(newS);
-        if (!newScene.isLoaded)
+        if (string.IsNullOrEmpty(newS))
         {
+            yield break;
+        }
+        //Scene newScene = SceneManager.GetSceneByName(newS);
+        //if (!newScene.isLoaded)
+        //{
             AsyncOperation loadS = SceneManager.LoadSceneAsync(newS, LoadSceneMode.Additive);
             while (!loadS.isDone)
             {
                 yield return null;
             }
-        }
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName("EasyGame1"));
-        if (oldS != newS && SceneManager.GetSceneByName(oldS).isLoaded)
+        //}
+        Scene newScene = SceneManager.GetSceneByName(newS);
+        if (newScene.IsValid())
         {
-            SceneManager.UnloadSceneAsync("EasyGame");
+            SceneManager.SetActiveScene(newScene);
+        }
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName("EasyGame1"));
+        if (oldS != newS)
+        {
+            Scene oldScene = SceneManager.GetSceneByName(oldS);
+            if (oldScene.IsValid() && oldScene.isLoaded)
+            {
+                SceneManager.UnloadSceneAsync(oldScene);
+            }
+            //SceneManager.UnloadSceneAsync("EasyGame");
         }
     }
 

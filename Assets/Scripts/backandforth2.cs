@@ -68,6 +68,7 @@ public class GameStart3 : MonoBehaviour
         {
             StartCoroutine(waitForLoad(current, sceneName));
         }
+        PlayerMovement.instance.setFinished(true);
 
         //string current = SceneManager.GetActiveScene().name;
         //StartCoroutine(waitForLoad(current, sceneName));

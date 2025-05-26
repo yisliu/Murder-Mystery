@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 //needed to do scene thing
 using DG.Tweening;
 
-public class buttonHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class tenseButton : MonoBehaviour
 {
     
     private Vector3 initScale;
