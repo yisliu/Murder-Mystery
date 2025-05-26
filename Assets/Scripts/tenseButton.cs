@@ -6,14 +6,14 @@ using UnityEngine.EventSystems;
 //needed to do scene thing
 using DG.Tweening;
 
-public class tenseButton : MonoBehaviour
+public class tenseButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     
     private Vector3 initScale;
     [SerializeField] AudioSource newAudio;
     private Tween tween;
-    private float scaleBy = 1.2f;
-    private float duration = 0.2f;
+    private float scaleBy = 1.1f;
+    private float duration = 0.5f;
     private RectTransform rect;
     private Vector3 scaleTo;
     
@@ -26,10 +26,14 @@ public class tenseButton : MonoBehaviour
         //scaleTo = initPos * scaleBy;
     }
 
+    void pulse()
+    {
+        tween = transform.DOScale(scaleBy * initScale, duration).SetLoops(-1, LoopType.Yoyo).SetEase(Ease.InOutSine);
+    }
+
     public void OnPointerEnter(PointerEventData pointerData)
     {
-        tween?.Kill();
-        tween = transform.DOScale(scaleBy*initScale, duration).SetEase(Ease.OutBack);
+        pulse();
         newAudio?.Play();
     }
 

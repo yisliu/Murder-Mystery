@@ -64,7 +64,7 @@ public class GameStart : MonoBehaviour
         //panel.SetActive(false);
         
         string current = SceneManager.GetActiveScene().name;
-        if (current != sceneName)
+        if (!string.IsNullOrEmpty(sceneName) && current != sceneName)
         {
             StartCoroutine(waitForLoad(current, sceneName));
         }
@@ -81,34 +81,55 @@ public class GameStart : MonoBehaviour
 
     private IEnumerator waitForLoad(string oldS, string newS)
     {
-        if (string.IsNullOrEmpty(newS))
-        {
-            yield break;
-        }
-        //Scene newScene = SceneManager.GetSceneByName(newS);
-        //if (!newScene.isLoaded)
-        //{
-            AsyncOperation loadS = SceneManager.LoadSceneAsync(newS, LoadSceneMode.Additive);
-            while (!loadS.isDone)
-            {
-                yield return null;
-            }
-        //}
+        AsyncOperation loadOp = SceneManager.LoadSceneAsync(newS, LoadSceneMode.Additive);
+        yield return new WaitUntil(() => loadOp.isDone);
         Scene newScene = SceneManager.GetSceneByName(newS);
-        if (newScene.IsValid())
+        if (newScene.IsValid() && newScene.isLoaded)
         {
             SceneManager.SetActiveScene(newScene);
         }
-        //SceneManager.SetActiveScene(SceneManager.GetSceneByName("EasyGame1"));
+        else
+        {
+            yield break;
+        }
+
         if (oldS != newS)
         {
             Scene oldScene = SceneManager.GetSceneByName(oldS);
             if (oldScene.IsValid() && oldScene.isLoaded)
             {
-                SceneManager.UnloadSceneAsync(oldScene);
+                AsyncOperation unloadOp = SceneManager.UnloadSceneAsync(oldScene);
+                yield return new WaitUntil(() => unloadOp.isDone);
             }
-            //SceneManager.UnloadSceneAsync("EasyGame");
         }
+        //if (string.IsNullOrEmpty(newS))
+        //{
+            //yield break;
+        //}
+        //Scene newScene = SceneManager.GetSceneByName(newS);
+        //if (!newScene.isLoaded)
+        //{
+           // AsyncOperation loadS = SceneManager.LoadSceneAsync(newS, LoadSceneMode.Additive);
+            //while (!loadS.isDone)
+            //{
+                //yield return null;
+            //}
+        //}
+        //Scene newScene = SceneManager.GetSceneByName(newS);
+        //if (newScene.IsValid())
+        //{
+            //SceneManager.SetActiveScene(newScene);
+        //}
+        //SceneManager.SetActiveScene(SceneManager.GetSceneByName("EasyGame1"));
+        //if (oldS != newS)
+        //{
+            //Scene oldScene = SceneManager.GetSceneByName(oldS);
+            //if (oldScene.IsValid() && oldScene.isLoaded)
+           // {
+                //SceneManager.UnloadSceneAsync(oldScene);
+           // }
+            //SceneManager.UnloadSceneAsync("EasyGame");
+        //}
     }
 
     

@@ -14,6 +14,7 @@ public class chancesLeft : MonoBehaviour
     {
         guesses = keepInfo.Instance.chances;
         t.text = guesses.ToString();
+        Debug.Log(guesses);
         //if(chances)
         if (guesses == 0 && keepInfo.Instance.win==false)
         {

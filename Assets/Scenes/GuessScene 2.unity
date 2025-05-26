@@ -131,6 +131,7 @@ GameObject:
   - component: {fileID: 103176379}
   - component: {fileID: 103176378}
   - component: {fileID: 103176377}
+  - component: {fileID: 103176380}
   m_Layer: 5
   m_Name: Button
   m_TagString: Victor
@@ -252,6 +253,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103176375}
   m_CullTransparentMesh: 1
+--- !u!114 &103176380
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 103176375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0301fd58d5c4e40a79ac8e1ec78153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newAudio: {fileID: 2123257285}
 --- !u!1 &194087734
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,6 +899,7 @@ GameObject:
   - component: {fileID: 1589409529}
   - component: {fileID: 1589409528}
   - component: {fileID: 1589409527}
+  - component: {fileID: 1589409530}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Emily
@@ -1006,6 +1021,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1589409525}
   m_CullTransparentMesh: 1
+--- !u!114 &1589409530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1589409525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0301fd58d5c4e40a79ac8e1ec78153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newAudio: {fileID: 2123257285}
 --- !u!1 &1782027539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1401,6 +1429,7 @@ GameObject:
   - component: {fileID: 1996518442}
   - component: {fileID: 1996518441}
   - component: {fileID: 1996518440}
+  - component: {fileID: 1996518444}
   m_Layer: 5
   m_Name: Button (2)
   m_TagString: Jenny
@@ -1510,6 +1539,19 @@ RectTransform:
   m_AnchoredPosition: {x: 344.91, y: -155}
   m_SizeDelta: {x: 127.8, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1996518444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1996518439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb0301fd58d5c4e40a79ac8e1ec78153, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  newAudio: {fileID: 2123257285}
 --- !u!1 &2030147260
 GameObject:
   m_ObjectHideFlags: 0
